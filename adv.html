@@ -1,0 +1,173 @@
+<html>
+<head>
+<title>adventure-start</title>
+<style>
+span.desicion{
+              font-weight:bold;
+			  border:thin solid #fffff;
+			  padding:5px;
+			  background-color:#dddddd;
+         }
+span.desicion:hover{
+                   text-decoration:underline;
+                    background-color:yellow;
+					cursor:hand;
+				   }
+				   
+</style>
+<script>
+var curscen=0;
+
+function replaceNodeText(id,newText)
+     {
+        var node=document.getElementById(id);
+		while (node.firstChild)
+		  node.removeChild(node.firstChild);
+          node.appendChild(document.createTextNode(newText));		  
+	 }
+
+	
+function adv(desicion)
+{ 
+    var his=document.getElementById('history'); 
+    if(curscen==0)
+	{ 
+     curscen=1;
+	 message="Let's start.";
+	 //alert(message);
+	 msg="You have to choose your first step.";
+	 button1='to the forest';
+	 button2='to the bridge';
+    //document.getElementById('pic').src="./scene2.png";
+     //create procedure  tree
+	 
+    }
+   else if(curscen==1)
+   {
+      if(desicion==1)
+	  {
+       curscen=2;
+	   msg="you will start from the forest, scared??";
+	   button1='go around';
+	   button2='knock on';
+      }
+	  else
+	  {
+	    curscen=3;
+		msg="You are standing on the bridge overlooking a peaceful stream.";
+	    button2='into stream';
+		button1='across bridge';
+	  
+	  }
+   }
+   else if(curscen==2)
+   {
+     if(desicion==1)
+	 {
+	   curscen=8;
+	   msg="to be continued.";
+	   button1='to be continued';
+	   document.getElementById('button2').style.visibility='hidden';
+       
+	 }
+	 else
+	 {
+	    curscen=4;
+		msg="now you arrived at the door";
+		button2='watch';
+		button1='away';
+	 }
+   }
+   else if(curscen==3)
+   { if(desicion==1)
+     {
+	    curscen=6;
+		msg="You are eaten by a troll.";
+		button1='The End';
+		document.getElementById('button2').style.visibility='hidden';
+	 }
+	 else
+	 {
+	   curscen=7;
+	    msg="a troll  before you , what will you do?";
+		button1='say hello';
+		button2='jump away';
+	 }
+   }
+   else if(curscen==4)
+   {
+     if(desicion==1)
+	 {
+	   curscen=8;
+	   msg="to be continued.";
+	   button1='to be continued';
+	  document.getElementById('button2').style.visibility='hidden';
+	   //alert(message);
+	 }
+	 else
+	 {
+	   curscen=5;
+	   msg="You are eaten by the witch";
+	   button1='The End';
+	   document.getElementById('button2').style.visibility='hidden';
+	   //alert(message);
+	 }
+    }
+	else if(curscen==7)
+   {
+     if(desicion==1)
+	 {
+	   curscen=6;
+	   msg="you are ennte by the troll.";
+	   button1='The End';
+	  document.getElementById('button2').style.visibility='hidden';
+	 }
+	 else
+	 {
+	   curscen=9;
+	   msg="to be continued.";
+	   button1='to be continued';
+	  document.getElementById('button2').style.visibility='hidden';
+	 }
+   
+   }
+  
+    document.getElementById('pic').src="./scene"+curscen+".png";
+	replaceNodeText('scenetext',msg);
+	replaceNodeText('button1',button1);
+	replaceNodeText('button2',button2);
+	//document.getElementById('scenetext').innerHTML=msg;
+	//alert(document.getElementById('scenetext').firstChild.nodeValue);
+    //error:alert(document.getElementById('scenetext').value);
+	//record the choose to check the procedure;
+    if(curscen!=0)
+	{
+	  var par=document.createElement("p");
+	  par.appendChild(document.createTextNode('desicion  '+desicion+'->scenen '+curscen+': '+msg));
+	  his.appendChild(par);
+	}
+	else
+	{
+	  while(his.firstChild) 
+	   { his.removeChild(his.firstChild);
+	  }
+	} 
+   
+}
+ 
+	
+	</script>
+</head>
+<body align='center' style="margin-top:100px;">
+<center>
+<img id='pic' src='./scene0.png' ></br>
+<div id='scenetext'></div>
+<p>
+<span id='button1' class='desicion' onclick='adv(1)' >start from this</span>
+<span id='button2' class='desicion' onclick='adv(2)'></span>
+</p>
+<div id='history' style="background-color:#dddddd">
+</div>
+</center>
+</body>
+</html>
